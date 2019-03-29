@@ -1,16 +1,16 @@
 from django.db import models
 
-def calendar(django.db.models):
+class calendar(models.Model):
     pass
 
-def months(django.db.models):
+class months(models.Model):
     pass
 
-def days(django.db.models):
+class days(models.Model):
     pass
 
-def events(django.db.models):
+class events(models.Model):
     pass
 
-def fileStorage(django.db.models):
+class fileStorage(models.Model):
     pass
