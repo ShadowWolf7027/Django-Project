@@ -1,16 +1,16 @@
 from django.db import models
 
-class calendar(models.Model):
+class Calendar(models.Model):
     pass
 
-class months(models.Model):
+class Months(models.Model):
     pass
 
-class days(models.Model):
+class Days(models.Model):
     pass
 
-class events(models.Model):
+class Events(models.Model):
     pass
 
-class fileStorage(models.Model):
+class FileStorage(models.Model):
     pass
