@@ -1,4 +1,4 @@
-from datetime import *
+from datetime import timedelta, datetime, date
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
@@ -6,13 +6,14 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 import calendar
 
-from .models import *
+from .models import Event
 from .tools import Calendar
 from .forms import EventForm
 
 class PlannerView(generic.ListView):
     model = Event
     template_name = 'planner/planner.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
@@ -20,28 +21,26 @@ class PlannerView(generic.ListView):
         html_plan = plan.formatmonth(withyear=True)
         context['planner'] = mark_safe(html_plan)
         context['prev_month'] = prev_month(d)
-        context['next_month'] = next_month(d)        
+        context['next_month'] = next_month(d)
         return context
 
-def get_date(req_day):
-    if req_day:
-        year, month = (int(x) for x in req_day.split('-'))
+def get_date(req_month):
+    if req_month:
+        year, month = (int(x) for x in req_month.split('-'))
         return date(year, month, day=1)
     return datetime.today()
 
-def prev_month(date):
-    first_day = date.replace(day=1)
-    p_month = first_day - timedelta(days=1)
-    # month = 'month=' + str(p_month.year) + '-' + str(p_month.month)
-    month = str(p_month.year) + '-' + str(p_month.month)
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
 
-def next_month(date):
-    month_days = calendar.monthrange(date.year, date.month)[1]
-    last_day = date.replace(day = month_days)
+def next_month(d):
+    month_days = calendar.monthrange(d.year, d.month)[1]
+    last_day = d.replace(day = month_days)
     n_month = last_day + timedelta(days=1)
-    # month = 'month=' + str(n_month.year) + '-' + str(n_month.month)
-    month = str(n_month.year) + '-' + str(n_month.month)
+    month = 'month=' + str(n_month.year) + '-' + str(n_month.month)
     return month
 
 def event(request, event_id=None):
