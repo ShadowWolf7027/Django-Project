@@ -1,15 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-class Calendar(models.Model):
-    pass
-
-class Months(models.Model):
-    pass
-
-class Days(models.Model):
-    pass
-
 class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
