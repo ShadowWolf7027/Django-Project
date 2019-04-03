@@ -12,12 +12,7 @@ class Event(models.Model):
         url = reverse('planner:event_edit', args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
 
-class Month(models.Model):
-    prev_month = models.CharField(max_length=200)
-    next_month = models.CharField(max_length=200)
-    event = models.CharField(max_length=200)
-    pass
-
-class FileStorage(models.Model):
-    upload = models.FileField()
-    pass
+class File(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
