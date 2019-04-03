@@ -1,5 +1,7 @@
 {% extends "planner/layout.html" %}
 
+{% block title %}Planner{% endblock %}
+
 {% block content %}
 <div class="clearfix">
 	<a class="btn btn-info left" href="{% url 'planner:planner' %}{{ prev_month }}"> Previous Month </a>

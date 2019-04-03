@@ -10,21 +10,17 @@ from .models import *
 from .tools import Calendar
 from .forms import EventForm
 
-def index(request):
-    return HttpResponse('hello')
-
 class PlannerView(generic.ListView):
     model = Event
     template_name = 'planner/planner.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        date = get_date(self.request.GET.get('day', None))
-        planner = Calendar(date.year, date.month)
-        planner_html = planner.formatmonth(withyear=True)
-        context['planner'] = mark_safe(planner_html)
-        m = get_date(self.request.GET.get('month', None))
-        context['prev_month'] = prev_month(m)
-        context['next_month'] = next_month(m)        
+        d = get_date(self.request.GET.get('month', None))
+        plan = Calendar(d.year, d.month)
+        html_plan = plan.formatmonth(withyear=True)
+        context['planner'] = mark_safe(html_plan)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)        
         return context
 
 def get_date(req_day):
@@ -33,17 +29,19 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.today()
 
-def prev_month(m):
-    first_day = m.replace(day=1)
-    prev_month = first_day - timedelta(days=1)
-    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+def prev_month(date):
+    first_day = date.replace(day=1)
+    p_month = first_day - timedelta(days=1)
+    # month = 'month=' + str(p_month.year) + '-' + str(p_month.month)
+    month = str(p_month.year) + '-' + str(p_month.month)
     return month
 
-def next_month(m):
-    month_days = calendar.monthrange(m.year, m.month)[1]
-    last_day = m.replace(day = month_days)
-    next_month = last_day + timedelta(days=1)
-    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+def next_month(date):
+    month_days = calendar.monthrange(date.year, date.month)[1]
+    last_day = date.replace(day = month_days)
+    n_month = last_day + timedelta(days=1)
+    # month = 'month=' + str(n_month.year) + '-' + str(n_month.month)
+    month = str(n_month.year) + '-' + str(n_month.month)
     return month
 
 def event(request, event_id=None):
