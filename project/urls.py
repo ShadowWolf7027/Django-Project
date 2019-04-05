@@ -20,3 +20,15 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('planner.urls')),
 ]
+
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+    path("accounts/ login/ [name='login']", include('django.contrib.auth.urls')),
+    path("accounts/ logout/ [name='logout']", include('django.contrib.auth.urls')),
+    path("accounts/ password_change/ [name='password_change']", include('django.contrib.auth.urls')),
+    path("accounts/ password_change/done/ [name='password_change_done']", include('django.contrib.auth.urls')),
+    path("accounts/ password_reset/ [name='password_reset']", include('django.contrib.auth.urls')),
+    path("accounts/ password_reset/done/ [name='password_reset_done']", include('django.contrib.auth.urls')),
+    path("accounts/ reset/<uidb64>/<token>/ [name='password_reset_confirm']", include('django.contrib.auth.urls')),
+    path("accounts/ reset/done/ [name='password_reset_complete']", include('django.contrib.auth.urls')),
+]
