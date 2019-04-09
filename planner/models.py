@@ -6,10 +6,10 @@ class Event(models.Model):
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-
+    course = models.TextField(blank=True)
     @property
     def get_url(self):
-        url = reverse('planner:event_edit', args=(self.id,))
+        url = reverse('planner:event_view', args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
 
 class File(models.Model):

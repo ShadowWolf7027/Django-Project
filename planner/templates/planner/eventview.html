@@ -1,0 +1,9 @@
+{% extends 'planner/layout.html' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+<p>{{ event.description }}</p>
+<p>{{ event.start_time }}</p>
+<p>{{ event.end_time }}</p>
+{% endblock %}

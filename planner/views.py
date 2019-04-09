@@ -54,6 +54,10 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('planner:planner'))
     return render(request, 'planner/event.html', {'form': form})
+    
+def eventview(request, event_id=None):
+    event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'planner/eventview.html', {'event':event})
 
 def fileStorage_view():
     pass
