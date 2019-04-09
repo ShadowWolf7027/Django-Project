@@ -1,11 +1,15 @@
 from django.db import models
 from django.urls import reverse
+from .file_reader import *
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
+    def parse_file(self):
+        return read
 
     @property
     def get_url(self):
