@@ -33,22 +33,23 @@ def read():
                 for k, v in lesson.items():
                     if is_date(v) and v not in dates:
                         dates.append(v)
-        # print(data)
-        # print(', '.join("{!s}={!r}".format(key,val) for (key,val) in data.items()))
+        lesson_list = []
         for x in data:
-            print(', '.join("{!s}={!r}".format(key,val) for (key,val) in x.items()))
-    elif 'pdf' in f:
-        pdf = open(f,'rb')
-        pdfReader = PyPDF2.PdfFileReader(pdf)
-        numPages = pdfReader.getNumPages()
-        for page in range(numPages):
-            pageObj = pdfReader.getPage(page)
-            print(pageObj.extractText())
-    elif 'xlsx' in f:
-        df = pd.read_excel(f)
-        print(df.columns)
-        # print(df)
-    else:
-        with open(f, 'r') as fi:
-            for line in fi:
-                print(line)
+            # print(', '.join("{!s}={!r}".format(key,val) for (key,val) in x.items()))
+            lesson_list.append(list(x.items()))
+        return lesson_list
+    # elif 'pdf' in f:
+    #     pdf = open(f,'rb')
+    #     pdfReader = PyPDF2.PdfFileReader(pdf)
+    #     numPages = pdfReader.getNumPages()
+    #     for page in range(numPages):
+    #         pageObj = pdfReader.getPage(page)
+    #         print(pageObj.extractText())
+    # elif 'xlsx' in f:
+    #     df = pd.read_excel(f)
+    #     print(df.columns)
+    #     # print(df)
+    # else:
+    #     with open(f, 'r') as fi:
+    #         for line in fi:
+    #             print(line)
