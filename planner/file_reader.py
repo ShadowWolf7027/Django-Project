@@ -13,8 +13,9 @@ def read():
     dates = []
     full_data = []
 
-    Tk().withdraw()
-    f = askopenfilename()
+    # Tk().withdraw()
+    # f = askopenfilename()
+    f = 'documents/HI302_30-Lesson_Course_Schedule_19-2_Final.docx'
     if 'docx' in f:
         doc = docx.Document(f)
         tables = doc.tables
