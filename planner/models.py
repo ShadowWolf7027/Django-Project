@@ -15,7 +15,6 @@ class Event(models.Model):
         lessons = read()
         bulk_lessons = []
         for lesson in lessons:
-            # for info in lesson:
             new_lesson = Event()
             new_lesson.title = str(lesson[0])
             new_lesson.description = str(lesson[2] + lesson[3])
