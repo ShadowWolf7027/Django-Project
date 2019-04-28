@@ -1,15 +1,18 @@
 from django.db import models
 from django.urls import reverse
 from .file_reader import *
+import datetime
+import django.utils
+import datefinder
 
 class Event(models.Model):
     title = models.CharField(max_length=200, blank = True)
     description = models.TextField(blank=True)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    # start_time = models.DateTimeField()
+    # end_time = models.DateTimeField()
+    date = models.DateField(blank=True)#default=datetime.date.today(), blank=True)
     course = models.TextField(blank=True)
 
-    @property
     def save(self):
         lessons = read()
         for lesson in lessons:
@@ -18,6 +21,9 @@ class Event(models.Model):
             self.description = str(lesson[2] + lesson[3])
             # self.start_time = str(lesson[1])
             # self.end_time = str(lesson[1])
+            l = datefinder.find_dates(str(lesson[1]))
+            for d in l:
+                self.date = d.date()
             self.course = 'MilArt'
         super(Event, self).save()
 
