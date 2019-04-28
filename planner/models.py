@@ -8,24 +8,24 @@ import datefinder
 class Event(models.Model):
     title = models.CharField(max_length=200, blank = True)
     description = models.TextField(blank=True)
-    # start_time = models.DateTimeField()
-    # end_time = models.DateTimeField()
-    date = models.DateField(blank=True)#default=datetime.date.today(), blank=True)
+    date = models.DateField(null=True,blank=True)
     course = models.TextField(blank=True)
 
     def save(self):
         lessons = read()
+        bulk_lessons = []
         for lesson in lessons:
             # for info in lesson:
-            self.title = str(lesson[0])
-            self.description = str(lesson[2] + lesson[3])
-            # self.start_time = str(lesson[1])
-            # self.end_time = str(lesson[1])
+            new_lesson = Event()
+            new_lesson.title = str(lesson[0])
+            new_lesson.description = str(lesson[2] + lesson[3])
             l = datefinder.find_dates(str(lesson[1]))
             for d in l:
+                new_lesson.date = d.date()
                 self.date = d.date()
-            self.course = 'MilArt'
-        super(Event, self).save()
+            new_lesson.course = 'MilArt'
+            bulk_lessons.append(new_lesson)
+        Event.objects.bulk_create(bulk_lessons)
 
     @property
     def get_url(self):

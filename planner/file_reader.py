@@ -10,17 +10,13 @@ def is_date(string):
     except ValueError:
         return False
 def read():
-    dates = []
-    full_data = []
-
-    # Tk().withdraw()
-    # f = askopenfilename()
     f = 'documents/HI302_30-Lesson_Course_Schedule_19-2_Final.docx'
     if 'docx' in f:
+        data = []
         doc = docx.Document(f)
         tables = doc.tables
         for table in tables:
-            data = []
+            # data = []
             for i, row in enumerate(table.rows):
                 text = (cell.text for cell in row.cells)
                 if i == 0:
@@ -28,15 +24,8 @@ def read():
                     continue
                 row_data = dict(zip(keys, text))
                 data.append(row_data)
-                full_data.append(data)
-        for entry in full_data:
-            for lesson in entry:
-                for k, v in lesson.items():
-                    if is_date(v) and v not in dates:
-                        dates.append(v)
         lesson_list = []
         for x in data:
-            # print(', '.join("{!s}={!r}".format(key,val) for (key,val) in x.items()))
             lesson_list.append(list(x.items()))
         return lesson_list
     # elif 'pdf' in f:
