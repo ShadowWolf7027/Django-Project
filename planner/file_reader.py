@@ -1,6 +1,4 @@
-import docx, PyPDF2, pandas as pd
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+import docx
 from dateutil.parser import parse
 
 def is_date(string):
@@ -28,18 +26,3 @@ def read():
         for x in data:
             lesson_list.append(list(x.items()))
         return lesson_list
-    # elif 'pdf' in f:
-    #     pdf = open(f,'rb')
-    #     pdfReader = PyPDF2.PdfFileReader(pdf)
-    #     numPages = pdfReader.getNumPages()
-    #     for page in range(numPages):
-    #         pageObj = pdfReader.getPage(page)
-    #         print(pageObj.extractText())
-    # elif 'xlsx' in f:
-    #     df = pd.read_excel(f)
-    #     print(df.columns)
-    #     # print(df)
-    # else:
-    #     with open(f, 'r') as fi:
-    #         for line in fi:
-    #             print(line)
