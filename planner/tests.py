@@ -6,7 +6,7 @@ from unittest import mock
 
 class EventTestCase(TestCase):
 
-    def test_recent_event(self):
+    def test_valid_event(self):
         try:
             date = datetime.strptime('2019-13-35', '%Y-%m-%d')
             test_event = Event.objects.create(title='Test', description='Test', 
