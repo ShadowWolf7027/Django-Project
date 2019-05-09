@@ -1,12 +1,9 @@
 import docx
 from dateutil.parser import parse
 
-def is_date(string):
-    try: 
-        dt = parse(string, fuzzy_with_tokens=True)
-        return dt
-    except ValueError:
-        return False
+# Open's a file and iterates through the tables
+# adding each row to a list and adding that list
+# to a root list
 def read():
     f = 'documents/HI302_30-Lesson_Course_Schedule_19-2_Final.docx'
     if 'docx' in f:

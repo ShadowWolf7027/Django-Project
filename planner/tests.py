@@ -5,7 +5,7 @@ from datetime import datetime
 from unittest import mock
 
 class EventTestCase(TestCase):
-
+    # Verify that only valid dates can be inputted
     def test_valid_event(self):
         try:
             date = datetime.strptime('2019-13-35', '%Y-%m-%d')
@@ -16,6 +16,7 @@ class EventTestCase(TestCase):
             return False
 
 class EventListViewTestCase(TestCase):
+    # Verify there are no issues with any of the pages
     def test_calendar(self):
         response = self.client.get(reverse('planner:planner'))
         self.assertEqual(response.status_code, 200)
@@ -25,6 +26,7 @@ class EventListViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 class FileTestCase(TestCase):
+    # Verify that a file can be uploaded with information saved
     def test_file_field(self):
         mock_file = mock.MagicMock(spec=File)
         mock_file.description = 'test.pdf'

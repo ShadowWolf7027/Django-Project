@@ -10,7 +10,9 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     date = models.DateField(null=True,blank=True)
     course = models.TextField(blank=True)
-
+    
+    # Override the save function to allow input saves and auto-generation 
+    # of model instances
     def save(self):
         if (not self.title or not self.description or
             not self.date or not self.course):
@@ -30,6 +32,7 @@ class Event(models.Model):
         else:
             super(Event, self).save()
 
+    # Allow a user to click in an event and see it's details in a separate page
     @property
     def get_url(self):
         url = reverse('planner:event_view', args=(self.id,))
