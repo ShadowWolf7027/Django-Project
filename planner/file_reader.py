@@ -14,7 +14,6 @@ def read():
         doc = docx.Document(f)
         tables = doc.tables
         for table in tables:
-            # data = []
             for i, row in enumerate(table.rows):
                 text = (cell.text for cell in row.cells)
                 if i == 0:
