@@ -65,4 +65,4 @@ def event(request, event_id=None):
     # Generates the event view template
 def eventview(request, event_id=None):
     event = get_object_or_404(Event, pk=event_id)
-    return render(request, 'planner/eventview.html', {'event':event}
+    return render(request, 'planner/eventview.html', {'event':event})
