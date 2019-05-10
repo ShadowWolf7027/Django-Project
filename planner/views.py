@@ -3,8 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 import calendar
+from django.views.generic.edit import DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from .models import Event
 from .tools import Calendar
@@ -66,3 +69,8 @@ def event(request, event_id=None):
 def eventview(request, event_id=None):
     event = get_object_or_404(Event, pk=event_id)
     return render(request, 'planner/eventview.html', {'event':event})
+
+#Delete an Event from Event View Page
+class DeleteView(DeleteView):
+    model = Event
+    success_url = '/planner/'

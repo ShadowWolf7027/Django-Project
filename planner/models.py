@@ -6,12 +6,20 @@ import django.utils
 import datefinder
 
 class Event(models.Model):
+    class_year = (
+        ("FR", "Freshman"),
+        ("SO", "Sophomore"),
+        ("JR", "Junior"),
+        ("SR", "Senior"),
+        ("NA", "No Associated Class Year"),
+    )
     title = models.CharField(max_length=200, blank = True)
     description = models.TextField(blank=True)
     date = models.DateField(null=True,blank=True)
-    course = models.TextField(blank=True)
-    
-    # Override the save function to allow input saves and auto-generation 
+    course = models.CharField(max_length=10)
+    course_year = models.CharField(max_length=2, choices=class_year, default="NA")
+
+    # Override the save function to allow input saves and auto-generation
     # of model instances
     def save(self):
         if (not self.title or not self.description or
@@ -20,13 +28,14 @@ class Event(models.Model):
             bulk_lessons = []
             for lesson in lessons:
                 new_lesson = Event()
-                new_lesson.title = 'MilArt ' + ' '.join(lesson[0])
+                new_lesson.title = ' '.join(lesson[0])
                 new_lesson.description = ' '.join(lesson[2] + lesson[3])
                 l = datefinder.find_dates(' '.join(lesson[1]))
                 for d in l:
                     new_lesson.date = d.date()
                     self.date = d.date()
                 new_lesson.course = 'MilArt'
+                new_lesson.course_year = "Junior"
                 bulk_lessons.append(new_lesson)
             Event.objects.bulk_create(bulk_lessons)
         else:
@@ -36,7 +45,7 @@ class Event(models.Model):
     @property
     def get_url(self):
         url = reverse('planner:event_view', args=(self.id,))
-        return f'<a href="{url}"> {self.title} </a>'
+        return f'<a href="{url}"> {self.course}: {self.title} </a>'
 
 class File(models.Model):
     description = models.CharField(max_length=255, blank=True)

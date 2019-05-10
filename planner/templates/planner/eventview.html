@@ -6,7 +6,16 @@
 <h1>Assignments/Readings:</h1>
 <br>
 <h4>{{ event.description }}</h4>
+<br>
 <h1>Date:</h1>
 <br>
 <h4>{{ event.date }}</h4>
+
+<div class="clearfix">
+  <a class="btn btn-info right" href="{% url 'planner:planner' %}"> Planner </a>
+<form action="{% url 'planner:delete_view' pk=event.pk %}" method="Post">
+  {% csrf_token %}
+  <input class="btn btn-info right btn-danger" type="submit" value="Delete"/>
+</form>
+</div>
 {% endblock %}
