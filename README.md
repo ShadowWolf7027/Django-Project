@@ -25,5 +25,5 @@ just add a new event but leave everything blank and click save.
 * Enable event colorcodings (quickly decipher which events are for either plebes, yuks, cows, and/or firsties)
 
 ### Links:
-[Website](www.outlook.pythonanywhere.com/planner)
-[Django Documentation](https://docs.djangoproject.com/en/2.2/ref/)
+* [Website](www.outlook.pythonanywhere.com/planner)
+* [Django Documentation](https://docs.djangoproject.com/en/2.2/ref/)
