@@ -26,3 +26,4 @@ just add a new event but leave everything blank and click save.
 
 ### Links:
 [Website](www.outlook.pythonanywhere.com/planner)
+[Django Documentation](https://docs.djangoproject.com/en/2.2/ref/)
